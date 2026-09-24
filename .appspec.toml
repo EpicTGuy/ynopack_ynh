@@ -1,14 +1,14 @@
 schema_version = 1
 
 [app]
-id = "ynopack"
-name = "Ynopack"
-description_en = "Transforme un depot Git en application YunoHost installable : analyse, verdict de faisabilite, generation, verification, installation reelle et"
-version = "0.1.1"
+id = "yunopack"
+name = "Yunopack"
+description_en = "Transforme un depot Git en application YunoHost installable : analyse, faisabilite, generation, verification et installation reelle."
+version = "0.2.0"
 
 [upstream]
 license = "AGPL-3.0-only"
-code = "https://github.com/EpicTGuy/ynopack"
+code = "https://github.com/EpicTGuy/yunopack"
 
 [integration]
 yunohost_min = ">= 12.1.17"
@@ -37,33 +37,33 @@ ports = true
 database = "none"
 
 [resources.sources]
-url = "https://github.com/EpicTGuy/ynopack/archive/v0.1.1.tar.gz"
-sha256 = "06db799f5de6a692d75a7b8b2f5bda5af8f3084021eca372bb275c45d37ec96f"
+url = "https://github.com/EpicTGuy/yunopack/archive/v0.2.0.tar.gz"
+sha256 = "ce212e2b40e30cd3b762d3cea9c11d217ea231dcd4d43e8c808e1614fac07b73"
 autoupdate_strategy = "latest_github_release"
 in_subdir = false
 extract = true
 
 [[resources.sources.per_arch]]
 arch = "arm64"
-name = "ynopack-linux-arm64.tar.gz"
-url = "https://github.com/EpicTGuy/ynopack/releases/download/v0.1.1/ynopack-linux-arm64.tar.gz"
-sha256 = "6612131fa6ea9164a3ef753c8d3bbb0bbb3cdf61d15d6c19f4f109dd9c1f0b0a"
-pattern = '^ynopack-linux-arm64\.tar\.gz$'
+name = "yunopack-linux-arm64.tar.gz"
+url = "https://github.com/EpicTGuy/yunopack/releases/download/v0.2.0/yunopack-linux-arm64.tar.gz"
+sha256 = "02ca5cbfd7424133aa3082a27c36214d5af94bc924696d17afca77a8a083d020"
+pattern = '^yunopack-linux-arm64\.tar\.gz$'
 extract = true
 
 [[resources.sources.per_arch]]
 arch = "amd64"
-name = "ynopack-linux-amd64.tar.gz"
-url = "https://github.com/EpicTGuy/ynopack/releases/download/v0.1.1/ynopack-linux-amd64.tar.gz"
-sha256 = "40bffefe3ad5b68651bb044f87887646f8f5d3f78ac3283687338a590aaa682c"
-pattern = '^ynopack-linux-amd64\.tar\.gz$'
+name = "yunopack-linux-amd64.tar.gz"
+url = "https://github.com/EpicTGuy/yunopack/releases/download/v0.2.0/yunopack-linux-amd64.tar.gz"
+sha256 = "a1f1a4e470fcd6fd65d8099af71675343995d8bdd082b8672bc1abd69fc9686c"
+pattern = '^yunopack-linux-amd64\.tar\.gz$'
 extract = true
 
 [runtime]
 technology = "rust"
 database_binding = ""
 
-execstart = "__INSTALL_DIR__/ynopack-server --addr 127.0.0.1:__PORT__ --out __DATA_DIR__/travaux"
+execstart = "__INSTALL_DIR__/yunopack-server --addr 127.0.0.1:__PORT__ --out __DATA_DIR__/travaux"
 
 [runtime.port_binding]
 unknown = "on ignore sous quel nom l'application attend son port d'ecoute ; la forme varie d'une application a l'autre (PORT=__PORT__, LISTEN_ADDR=127.0.0.1:__PORT__...)"
@@ -86,19 +86,19 @@ service_integration = true
 admin = """
 ## Accès aux hôtes de test
 
-ynopack valide les paquets qu'il produit en les installant réellement sur un
+yunopack valide les paquets qu'il produit en les installant réellement sur un
 serveur YunoHost. Il lui faut donc une identité SSH propre — jamais la vôtre.
 
 Créez-la une fois, sous l'utilisateur de l'application :
 
 ```bash
-sudo -u ynopack ssh-keygen -t ed25519 -N "" \\
-  -f /home/yunohost.app/ynopack/ssh/id_ed25519
-sudo cat /home/yunohost.app/ynopack/ssh/id_ed25519.pub
+sudo -u yunopack ssh-keygen -t ed25519 -N "" \\
+  -f /home/yunohost.app/yunopack/ssh/id_ed25519
+sudo cat /home/yunohost.app/yunopack/ssh/id_ed25519.pub
 ```
 
 Déposez la clé publique dans le `~/.ssh/authorized_keys` de l'hôte visé, puis
-déclarez-y un alias dans `/home/yunohost.app/ynopack/ssh/config`. Tant que vous
+déclarez-y un alias dans `/home/yunohost.app/yunopack/ssh/config`. Tant que vous
 ne l'avez pas fait, la clé n'autorise rien.
 
 ## Jetons
@@ -109,10 +109,10 @@ Sans lui l'outil fonctionne, mais s'arrête vite sur les analyses en série.
 `FORGEJO_URL`, `FORGEJO_OWNER` et `FORGEJO_TOKEN` servent à publier sur une
 forge Forgejo.
 
-À placer dans `/home/yunohost.app/ynopack/env`, lisible par le seul utilisateur
+À placer dans `/home/yunohost.app/yunopack/env`, lisible par le seul utilisateur
 de l'application.
 """
-description = "Transforme un depot Git en application YunoHost installable : analyse, verdict de faisabilite, generation, verification, installation reelle et publication."
+description = "Transforme un depot Git en application YunoHost installable : analyse, faisabilite, generation, verification et installation reelle."
 license_text = """
                     GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
